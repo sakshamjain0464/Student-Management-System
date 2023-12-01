@@ -1,5 +1,6 @@
 from tkinter import *
-from tkinter import messagebox
+import customtkinter as c
+from CTkMessagebox import CTkMessagebox as message
 from PIL import Image
 import backend
 from PIL import ImageTk
@@ -9,23 +10,22 @@ def authenticateUser():
         '''Fuction For Login User Authentication'''
         global attempts
         if(user_entry.get() == "" or pwd_entry.get() == ""):
-            messagebox.showwarning(title="Login Failed!", message="No fields can be left Empty!")
+            message(title="Login Failed!", message="No fields can be left Empty!", icon='warning')
         else:
             authenticated = backend.authenticate(user_entry.get(), pwd_entry.get())
             if(authenticated == True):
                 print("Authenticated")
                 login_window.destroy()
                 windows.mainWindow()
-            
             elif(authenticated == "Error"):
-                  messagebox.showerror(title="Login Failed!", message="Database Error!")
+                  message(title="Login Failed!", message="Database Error!", icon='cancel')
             else:
-                messagebox.showwarning(title="Login Failed!", message="Login Failed! Please Try again")
+                message(title="Login Failed!", message="Login Failed! Please Try again", icon='retry')
                 attempts -=1;
-                attempt_label = Label(login_window, text=f"Attempts Left {attempts}")
-                attempt_label.grid(row=5, column=1, pady=5)
+                attempt_label = c.CTkLabel(login_window, text=f"Attempts Left {attempts}")
+                attempt_label.grid(row=6, column=1, pady=5)
                 if(attempts == 0):
-                    messagebox.showwarning(title="Login Failed!", message="No of attempts exceeded")
+                    message(title="Login Failed!", message="No of attempts exceeded")
                     quit()
                 return attempts
 
@@ -33,43 +33,37 @@ def authenticateUser():
 
 
 # Login window
-login_window = Tk()
-login_window.geometry('500x250')
+login_window = c.CTk()
+login_window.geometry('500x280')
 login_window.title("Login")
-
-# Database error Handling
-if(backend.connected == False):
-    messagebox.showerror(title="Error", message="Database Connection Error!")
-    login_window.destroy()
-    quit()
 
 # No of attempts
 attempts = 3
 
 # Headings
-heading_label = Label(login_window, text="Student Management System", font=("Helvetica", 16, "bold"))
-heading_label.grid(row=0, column=1, padx=10, pady=10)
+heading_label = c.CTkLabel(login_window, text="Student Management System", font=("Ariel",20 , "bold"))
+heading_label.grid(row=0, column=1, padx=10, pady=(20,10))
 
-sub_heading_label = Label(login_window, text="Login", font=("Helvetica", 12))
-sub_heading_label.grid(row=1, column=1, padx=10, pady=10)
+sub_heading_label = c.CTkLabel(login_window, text="Login", font=("Helvetica", 18, "bold"))
+sub_heading_label.grid(row=1, column=1, padx=10, pady=(0,10))
 
  #entries
-user_label = Label(login_window, text="Username:")
+user_label = c.CTkLabel(login_window, text="Username:", font=("Helvetica", 16, "bold"))
 user_label.grid(row=2, column=0, padx=(30,10), pady=3, sticky=W)
 
-user_entry = Entry(login_window)
+user_entry = c.CTkEntry(login_window, placeholder_text="username", font=("Helvetica", 14))
 user_entry.grid(row=2, column=1, padx=(3,10), pady=3, sticky=W)
 
-pwd_label = Label(login_window, text="Password:")
+pwd_label = c.CTkLabel(login_window, text="Password:", font=("Helvetica", 16, "bold"))
 pwd_label.grid(row=3, column=0, padx=(30,10), pady=3, sticky=W)
 
-pwd_entry = Entry(login_window, show='*')
+pwd_entry = c.CTkEntry(login_window, placeholder_text="password",show='*', font=("Helvetica", 14))
 pwd_entry.grid(row=3, column=1, padx=(3,10), pady=3, sticky=W)
 
-login_button = Button(login_window, text="Login",  command=lambda :  authenticateUser())
-login_button.grid(row=4, column=1, pady=5)
+login_button = c.CTkButton(login_window, text="Login",  command=lambda :  authenticateUser())
+login_button.grid(row=4, column=1, pady=(20,0))
 
-create_button = Button(login_window, text="Create User", command=lambda : windows.createUser(login_window))
-create_button.grid(row=4, column=2, pady=5, padx=(0,10))
+create_button = c.CTkButton(login_window, text="Create User", command=lambda : windows.createUser(login_window))
+create_button.grid(row=5, column=1, pady=5)
 login_window.mainloop()
 backend.connection.close()
