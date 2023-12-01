@@ -17,7 +17,7 @@ CREATE TABLE student_details (
     Roll_NO VARCHAR(5) PRIMARY KEY,
     First_name VARCHAR(50),
     Last_name VARCHAR(50),
-    Course_ID INT,
+    Course_ID VARCHAR(5),
     Marks INT CHECK (Marks >= 0 AND Marks <= 100),
     FOREIGN KEY (Course_ID) REFERENCES courses(Course_ID)
 );

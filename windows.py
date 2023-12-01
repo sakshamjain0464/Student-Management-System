@@ -2,8 +2,49 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import Image
 from PIL import ImageTk
+import utilities
+import backend
 
-# Windows
+
+# Create User Dashboard
+def createUser(login_window):
+    create_window = Toplevel(login_window)
+    create_window.geometry('500x250')
+    create_window.title("Create User")
+
+    # Headings
+    heading_label = Label(create_window, text="Student Management System", font=("Helvetica", 16, "bold"))
+    heading_label.grid(row=0, column=1, padx=(0,10), pady=10)
+
+    sub_heading_label = Label(create_window, text="Create User", font=("Helvetica", 12))
+    sub_heading_label.grid(row=1, column=1, padx=(0,10), pady=10)
+
+     #entries
+    user_label = Label(create_window, text="Username:")
+    user_label.grid(row=2, column=0, padx=(30,10), pady=3, sticky=W)
+
+    user_entry = Entry(create_window)
+    user_entry.grid(row=2, column=1, padx=(3,10), pady=3, sticky=W)
+
+    pwd_label = Label(create_window, text="Password:")
+    pwd_label.grid(row=3, column=0, padx=(30,10), pady=3, sticky=W)
+
+    pwd_entry = Entry(create_window, show='*')
+    pwd_entry.grid(row=3, column=1, padx=(3,10), pady=3, sticky=W)
+
+    conf_pwd_label = Label(create_window, text="Confirm Password:")
+    conf_pwd_label.grid(row=4, column=0, padx=(30,10), pady=3, sticky=W)
+
+    conf_pwd_entry = Entry(create_window)
+    conf_pwd_entry.grid(row=4, column=1, padx=(3,10), pady=3, sticky=W)
+
+    create_button = Button(create_window, text="Create User", command= lambda : utilities.createUser(create_window, user_entry, pwd_entry, conf_pwd_entry))
+    create_button.grid(row=5, column=1, pady=5)
+
+    login_button = Button(create_window, text="Login", command=lambda : create_window.destroy())
+    login_button.grid(row=5, column=2, padx=(0,10))
+
+# Main Dashboard Window
 def mainWindow():
 # Window Creation
     window =Tk()
@@ -40,6 +81,7 @@ def mainWindow():
     footer_label = Label(window, text="Created By - Saksham Jain and Ritika Nainani", font=("Helvetica", 8))
     footer_label.pack(pady=10, side='bottom')
     window.mainloop()
+    backend.connection.close()
 
 
 def addWindow(window):
@@ -55,9 +97,6 @@ def addWindow(window):
     sub_heading_label.grid(row=1, column=1, padx=(0,10), pady=10)
 
     #entries
-
-    roll_entry = Entry(add_window)
-    roll_entry.grid(row=2, column=1, padx=(30,10), pady=10, sticky=W)
 
     first_name_label = Label(add_window, text="First Name:")
     first_name_label.grid(row=3, column=0, padx=(30,10), pady=10, sticky=W)
