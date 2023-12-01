@@ -55,8 +55,6 @@ def addWindow(window):
     sub_heading_label.grid(row=1, column=1, padx=(0,10), pady=10)
 
     #entries
-    roll_label = Label(add_window, text="Roll Number:")
-    roll_label.grid(row=2, column=0, padx=(30,10), pady=10, sticky=W)
 
     roll_entry = Entry(add_window)
     roll_entry.grid(row=2, column=1, padx=(30,10), pady=10, sticky=W)

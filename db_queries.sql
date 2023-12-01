@@ -7,17 +7,29 @@ CREATE TABLE users (
 
 -- Creating Course Table
 CREATE TABLE courses (
-    Course_ID INT PRIMARY KEY,
+    Course_ID VARCHAR(5) PRIMARY KEY,
     Course_Name VARCHAR(100) NOT NULL
 );
 
 
 -- Creating Student Table
 CREATE TABLE student_details (
-    Roll_NO INT PRIMARY KEY,
+    Roll_NO VARCHAR(5) PRIMARY KEY,
     First_name VARCHAR(50),
     Last_name VARCHAR(50),
     Course_ID INT,
     Marks INT CHECK (Marks >= 0 AND Marks <= 100),
     FOREIGN KEY (Course_ID) REFERENCES courses(Course_ID)
 );
+
+-- Modified some columns
+ALTER TABLE courses
+MODIFY COLUMN Course_ID VARCHAR(5);
+
+ALTER TABLE student_details
+MODIFY COLUMN Course_ID VARCHAR(5);
+
+-- Recreate the foreign key constraint
+ALTER TABLE student_details
+ADD CONSTRAINT fk_course_id
+FOREIGN KEY (Course_ID) REFERENCES courses(Course_ID);
