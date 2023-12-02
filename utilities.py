@@ -62,7 +62,6 @@ def fetchDetails(roll):
         return False
     else:
         details = backend.fetchDetailsFromDb(roll)
-        print(details)
         if(details == False):
              message(title="WARNING", message="Student details not found!", icon='cancel')
              return False
@@ -114,12 +113,25 @@ def updateCGPA(details, cgpa):
         message(title="WARNING", message="CGPA can only be a two digit integer ", icon='warning')
     elif(int(cgpa.get()) < 0 or int(cgpa.get()) > 100):
         message(title="WARNING", message="CGPA can not be less than 0 or greater than 10", icon='warning')
+    else:
+        if(message(title="Confirm", message="Do you want to proceed!", option_2 = 'YES', option_1 = 'NO', icon='question').get() == 'YES'):
+            updated = backend.updateCGPAToDb(details[0], int(cgpa.get()))
+            if(updated == True):
+                message(title="Updated", message=f"Course Successfully Updated!", icon='check')
+            elif(updated == 'Error'):
+                 message(title="Error", message="An Error Occurred", icon='cancel')
+            else:
+                message(title="Error", message="Cannot update Student, contact the administrator", icon='cancel')
+        else:
+            pass
+
+def deleteStudent(details):
     if(message(title="Confirm", message="Do you want to proceed!", option_2 = 'YES', option_1 = 'NO', icon='question').get() == 'YES'):
-        updated = backend.updateCGPAToDb(details[0], int(cgpa.get()))
-        if(updated == True):
-            message(title="Updated", message=f"Course Successfully Updated!", icon='check')
-        elif(updated == 'Error'):
-             message(title="Error", message="An Error Occurred", icon='cancel')
+        deleted = backend.deleteFromDb(details[0])
+        if(deleted == True):
+            message(title="Updated", message=f"Student Deleted Successfully!", icon='check')
+        elif(deleted == 'Error'):
+            message(title="Error", message="An Error Occurred", icon='cancel')
         else:
             message(title="Error", message="Cannot update Student, contact the administrator", icon='cancel')
     else:

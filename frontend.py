@@ -30,8 +30,6 @@ def authenticateUser():
                 return attempts
 
 
-
-
 # Login window
 login_window = c.CTk()
 login_window.geometry('500x280')

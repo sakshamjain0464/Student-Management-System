@@ -73,10 +73,10 @@ def mainWindow():
     updateBtn = c.CTkButton(window, text="Update Student Details", command= lambda : updateWindow(window), font=("Ariel",16 , "bold"), border_spacing=4)
     updateBtn.pack(pady=10)
 
-    viewBtn = c.CTkButton(window, text="View Student Details", font=("Ariel",16 , "bold"), border_spacing=4)
+    viewBtn = c.CTkButton(window, text="View Student Details", font=("Ariel",16 , "bold"), border_spacing=4, command= lambda : viewWindow(window))
     viewBtn.pack(pady=10)
 
-    deleteBtn = c.CTkButton(window, text="Delete Student Details", font=("Ariel",16 , "bold"), border_spacing=4)
+    deleteBtn = c.CTkButton(window, text="Delete Student Details", font=("Ariel",16 , "bold"), border_spacing=4, command= lambda : deleteWindow(window))
     deleteBtn.pack(pady=10)
 
     footer_label = c.CTkLabel(window, text="Created By - Saksham Jain and Ritika Nainani", font=("Helvetica", 12))
@@ -275,4 +275,140 @@ def updateWindow(window):
     roll_entry.grid(row=2, column=1,columnspan=3,  pady=10, sticky=W)
 
     check_button = c.CTkButton(update_window, text="Check Detalis", font=("Helvetica", 16), command=lambda : showDetails())
+    check_button.grid(row=3, column=1, pady=10)
+
+def viewWindow(window):
+
+    def showDetails():
+        frame =  c.CTkFrame(view_window)
+        details = utilities.fetchDetails(roll_entry.get())
+        if(details == False):
+            pass
+        else:
+            view_window.geometry('600x700')
+            frame.grid(row=5, column=0, columnspan = 3, sticky='nsew')
+            frame.columnconfigure((0, 1), weight=1, uniform="equal")
+            frame.columnconfigure(2, weight=2, uniform="equal")
+
+            details_heading_label = c.CTkLabel(frame, text="Student Details:", font=("Ariel",16 , "bold"))
+            details_heading_label.grid(row=4, column=1, pady=10)
+
+            roll_no_label = c.CTkLabel(frame, text="Roll No: ", font=("Ariel",14))
+            roll_no_label.grid(row=5, column=1, pady=10, sticky=W, padx=20)
+            roll_no = c.CTkLabel(frame, text=details[0], font=("Ariel",14))
+            roll_no.grid(row=5, column=2, pady=10,  sticky=W, padx=20)
+
+            f_name_label = c.CTkLabel(frame, text="First Name: ", font=("Ariel",14))
+            f_name_label.grid(row=6, column=1, pady=10, sticky=W, padx=20)
+            f_name = c.CTkLabel(frame, text=details[1], font=("Ariel",14))
+            f_name.grid(row=6, column=2, pady=10, sticky=W, padx=20)
+
+            l_name_label = c.CTkLabel(frame, text="Last Name: ", font=("Ariel",14))
+            l_name_label.grid(row=7, column=1, pady=10, sticky=W, padx=20)
+            l_name = c.CTkLabel(frame, text=details[2], font=("Ariel",14))
+            l_name.grid(row=7, column=2, pady=10, sticky=W, padx=20)
+
+            course_label = c.CTkLabel(frame, text="Course: ", font=("Ariel",14))
+            course_label.grid(row=8, column=1, pady=10, sticky=W, padx=20)
+            course = c.CTkLabel(frame, text=details[3], font=("Ariel",14))
+            course.grid(row=8, column=2, pady=10, sticky=W, padx=20)
+            
+            cgpa_label = c.CTkLabel(frame, text="CGPA: ", font=("Ariel",14))
+            cgpa_label.grid(row=9, column=1, pady=10, sticky=W, padx=20)
+            cgpa = c.CTkLabel(frame, text=details[4], font=("Ariel",14))
+            cgpa.grid(row=9, column=2, pady=10, sticky=W, padx=20)
+
+            
+    view_window = c.CTkToplevel(window)
+    view_window.geometry('600x400')
+    view_window.title("View Details")
+    view_window.columnconfigure((0, 1, 2), weight=1, uniform="equal")
+    frame =  c.CTkFrame(view_window)
+    # Headings
+    heading_label = c.CTkLabel(view_window, text="Student Management System", font=("Ariel",20 , "bold"))
+    heading_label.grid(row=0, column=0,columnspan=3, pady=10) 
+
+    sub_heading_label = c.CTkLabel(view_window, text="Update Student Details", font=("Helvetica", 16))
+    sub_heading_label.grid(row=1, column=0, columnspan=3, pady=10)
+
+    #entries
+
+    roll_label = c.CTkLabel(view_window, text="Roll No:", font=("Helvetica", 16))
+    roll_label.grid(row=2, column=0,  pady=10, padx=10,sticky=E)
+
+    roll_entry = c.CTkEntry(view_window)
+    roll_entry.grid(row=2, column=1,columnspan=3,  pady=10, sticky=W)
+
+    check_button = c.CTkButton(view_window, text="Check Detalis", font=("Helvetica", 16), command=lambda : showDetails())
+    check_button.grid(row=3, column=1, pady=10)
+
+def deleteWindow(window):
+
+    def showDetails():
+        frame =  c.CTkFrame(delete_window)
+        details = utilities.fetchDetails(roll_entry.get())
+        if(details == False):
+            pass
+        else:
+            delete_window.geometry('600x700')
+            frame.grid(row=5, column=0, columnspan = 3, sticky='nsew')
+            frame.columnconfigure((0, 1), weight=1, uniform="equal")
+            frame.columnconfigure(2, weight=2, uniform="equal")
+
+            details_heading_label = c.CTkLabel(frame, text="Student Details:", font=("Ariel",16 , "bold"))
+            details_heading_label.grid(row=4, column=1, pady=10)
+
+            roll_no_label = c.CTkLabel(frame, text="Roll No: ", font=("Ariel",14))
+            roll_no_label.grid(row=5, column=1, pady=10, sticky=W, padx=20)
+            roll_no = c.CTkLabel(frame, text=details[0], font=("Ariel",14))
+            roll_no.grid(row=5, column=2, pady=10,  sticky=W, padx=20)
+
+            f_name_label = c.CTkLabel(frame, text="First Name: ", font=("Ariel",14))
+            f_name_label.grid(row=6, column=1, pady=10, sticky=W, padx=20)
+            f_name = c.CTkLabel(frame, text=details[1], font=("Ariel",14))
+            f_name.grid(row=6, column=2, pady=10, sticky=W, padx=20)
+
+            l_name_label = c.CTkLabel(frame, text="Last Name: ", font=("Ariel",14))
+            l_name_label.grid(row=7, column=1, pady=10, sticky=W, padx=20)
+            l_name = c.CTkLabel(frame, text=details[2], font=("Ariel",14))
+            l_name.grid(row=7, column=2, pady=10, sticky=W, padx=20)
+
+            course_label = c.CTkLabel(frame, text="Course: ", font=("Ariel",14))
+            course_label.grid(row=8, column=1, pady=10, sticky=W, padx=20)
+            course = c.CTkLabel(frame, text=details[3], font=("Ariel",14))
+            course.grid(row=8, column=2, pady=10, sticky=W, padx=20)
+            
+            cgpa_label = c.CTkLabel(frame, text="CGPA: ", font=("Ariel",14))
+            cgpa_label.grid(row=9, column=1, pady=10, sticky=W, padx=20)
+            cgpa = c.CTkLabel(frame, text=details[4], font=("Ariel",14))
+            cgpa.grid(row=9, column=2, pady=10, sticky=W, padx=20)
+
+            innerframe = c.CTkFrame(frame)
+            innerframe.grid(row=10, column=0, columnspan = 3, sticky='nsew')
+            innerframe.columnconfigure((0, 1, 2), weight=1, uniform="equal")
+
+            delete_button = c.CTkButton(innerframe, text="Delete", font=("Helvetica", 16), command = lambda : utilities.deleteStudent(details))
+            delete_button.grid(row=10, column=0, pady=10,columnspan=3, padx=10, sticky='nsew')
+
+    delete_window = c.CTkToplevel(window)
+    delete_window.geometry('600x400')
+    delete_window.title("Delete Student Details")
+    delete_window.columnconfigure((0, 1, 2), weight=1, uniform="equal")
+    frame =  c.CTkFrame(delete_window)
+    # Headings
+    heading_label = c.CTkLabel(delete_window, text="Student Management System", font=("Ariel",20 , "bold"))
+    heading_label.grid(row=0, column=0,columnspan=3, pady=10) 
+
+    sub_heading_label = c.CTkLabel(delete_window, text="Update Student Details", font=("Helvetica", 16))
+    sub_heading_label.grid(row=1, column=0, columnspan=3, pady=10)
+
+    #entries
+
+    roll_label = c.CTkLabel(delete_window, text="Roll No:", font=("Helvetica", 16))
+    roll_label.grid(row=2, column=0,  pady=10, padx=10,sticky=E)
+
+    roll_entry = c.CTkEntry(delete_window)
+    roll_entry.grid(row=2, column=1,columnspan=3,  pady=10, sticky=W)
+
+    check_button = c.CTkButton(delete_window, text="Check Detalis", font=("Helvetica", 16), command=lambda : showDetails())
     check_button.grid(row=3, column=1, pady=10)

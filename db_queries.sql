@@ -30,6 +30,4 @@ ALTER TABLE student_details
 MODIFY COLUMN Course_ID VARCHAR(5);
 
 -- Recreate the foreign key constraint
-ALTER TABLE student_details
-ADD CONSTRAINT fk_course_id
-FOREIGN KEY (Course_ID) REFERENCES courses(Course_ID);
+

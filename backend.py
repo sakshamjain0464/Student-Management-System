@@ -114,4 +114,15 @@ def updateCGPAToDb(roll, cgpa):
             return False
     except:
         return 'error'
+    
+def deleteFromDb(roll):
+    try:
+        cursor.execute(f"DELETE FROM STUDENT_DETAILS WHERE ROLL_NO = '{roll}'")
+        if(cursor.rowcount ==1):
+            connection.commit()
+            return True
+        else:
+            return False
+    except:
+        return 'error'
   
