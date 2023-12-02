@@ -70,3 +70,48 @@ def addStudentToDb(roll_no, f_name, l_name, course, cgpa):
             return False
     except:
         return "Error"
+    
+def fetchDetailsFromDb(roll):
+    try:
+        cursor.execute(f"select * from student_details where roll_no = '{roll}'")
+        details = cursor.fetchall()
+        if(details == []):
+            return False
+        else:
+            return details[0]
+    except:
+        return "error"
+    
+def updateNameToDb(roll, f_name, l_name):
+    try:
+        cursor.execute(f"UPDATE STUDENT_DETAILS SET FIRST_NAME = '{f_name}', LAST_NAME = '{l_name}' WHERE ROLL_NO = '{roll}'")
+        if(cursor.rowcount ==1):
+            connection.commit()
+            return True
+        else:
+            return False
+    except:
+        return 'error'
+    
+def updateCourseToDb(roll, course):
+    try:
+        cursor.execute(f"UPDATE STUDENT_DETAILS SET COURSE_ID = '{course}' WHERE ROLL_NO = '{roll}'")
+        if(cursor.rowcount ==1):
+            connection.commit()
+            return True
+        else:
+            return False
+    except:
+        return 'error'
+    
+def updateCGPAToDb(roll, cgpa):
+    try:
+        cursor.execute(f"UPDATE STUDENT_DETAILS SET CGPA = {cgpa} WHERE ROLL_NO = '{roll}'")
+        if(cursor.rowcount ==1):
+            connection.commit()
+            return True
+        else:
+            return False
+    except:
+        return 'error'
+  
