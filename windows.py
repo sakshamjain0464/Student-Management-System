@@ -91,40 +91,44 @@ def addWindow(window):
     add_window.title("Add Student")
 
     # Headings
-    heading_label = c.CTkLabel(add_window, text="Student Management System", font=("Helvetica", 16, "bold"))
-    heading_label.grid(row=0, column=1, padx=(0,10), pady=10)
+    heading_label = c.CTkLabel(add_window, text="Student Management System", font=("Ariel",20 , "bold"))
+    heading_label.grid(row=0, column=1, pady=10)
 
-    sub_heading_label = c.CTkLabel(add_window, text="Add Student", font=("Helvetica", 12))
-    sub_heading_label.grid(row=1, column=1, padx=(0,10), pady=10)
+    sub_heading_label = c.CTkLabel(add_window, text="Add Student", font=("Helvetica", 16))
+    sub_heading_label.grid(row=1, column=1, pady=(0,10))
 
     #entries
 
-    first_name_label = c.CTkLabel(add_window, text="First Name:")
+    first_name_label = c.CTkLabel(add_window, text="First Name:", font=("Helvetica", 16))
     first_name_label.grid(row=3, column=0, padx=(30,10), pady=10, sticky=W)
 
     first_name_entry = c.CTkEntry(add_window)
     first_name_entry.grid(row=3, column=1, padx=(30,10), pady=10, sticky=W)
 
-    last_name_label = c.CTkLabel(add_window, text="Last Name:")
+    last_name_label = c.CTkLabel(add_window, text="Last Name:", font=("Helvetica", 16))
     last_name_label.grid(row=4, column=0, padx=(30,10), pady=10, sticky=W)
 
     last_name_entry = c.CTkEntry(add_window)
     last_name_entry.grid(row=4, column=1, padx=(30,10), pady=10, sticky=W)
 
-    department_label = c.CTkLabel(add_window, text="Department:")
-    department_label.grid(row=5, column=0, padx=(30,10), pady=10, sticky=W)
+    course_label = c.CTkLabel(add_window, text="Course:", font=("Helvetica", 16))
+    course_label.grid(row=5, column=0, padx=(30,10), pady=10, sticky=W)
 
-    department_entry = c.CTkEntry(add_window)
-    department_entry.grid(row=5, column=1, padx=(30,10), pady=10, sticky=W)
+    courses = backend.getCourses()
 
-    marks_label = c.CTkLabel(add_window, text="Marks:")
-    marks_label.grid(row=6, column=0, padx=(30,10), pady=10, sticky=W)
+    course_entry = c.CTkOptionMenu(add_window, fg_color="gray13", button_color="gray10")
+    course_entry.grid(row=5, column=1, padx=(30,10), pady=10, sticky=W)
+    course_entry.configure(values=courses)
+    course_entry.set("CSE")
 
-    marks_entry = c.CTkEntry(add_window)
-    marks_entry.grid(row=6, column=1, padx=(30,10), pady=10, sticky=W)
+    cgpa_label = c.CTkLabel(add_window, text="CGPA:", font=("Helvetica", 16))
+    cgpa_label.grid(row=6, column=0, padx=(30,10), pady=10, sticky=W)
 
-    add_button = c.CTkButton(add_window, text="Add Student")
-    add_button.grid(row=7, column=0, columnspan=2, pady=10)
+    cgpa_entry = c.CTkEntry(add_window)
+    cgpa_entry.grid(row=6, column=1, padx=(30,10), pady=10, sticky=W)
+
+    add_button = c.CTkButton(add_window, text="Add Student", font=("Helvetica", 16), command=lambda : utilities.addStudent(first_name_entry, last_name_entry, course_entry, cgpa_entry))
+    add_button.grid(row=7, column=1, pady=10)
 
 # Update function
 def updateWindow(window):

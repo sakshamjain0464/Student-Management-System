@@ -18,7 +18,7 @@ CREATE TABLE student_details (
     First_name VARCHAR(50),
     Last_name VARCHAR(50),
     Course_ID VARCHAR(5),
-    Marks INT CHECK (Marks >= 0 AND Marks <= 100),
+    CGPA INT CHECK (CGPA >= 0 AND CGPA <= 10),
     FOREIGN KEY (Course_ID) REFERENCES courses(Course_ID)
 );
 

@@ -40,4 +40,33 @@ def createUserToDb(username,pwd):
             return "exists"
         return False
     
+def getCourses():
+    cursor.execute("select course_id from courses")
+    courses = cursor.fetchall()
+    courses_list = []
+    for course in courses:
+        courses_list.append(course[0])
+    return courses_list
+    
+    
+def getStudents():
+    cursor.execute("select count(*) from student_details")
+    global students
+    students = cursor.fetchall()[0][0]
+    print(students)
 
+getStudents()
+
+def addStudentToDb(roll_no, f_name, l_name, course, cgpa):
+    try:
+        query = "INSERT INTO STUDENT_DETAILS VALUES(%s,%s,%s,%s, %s)"
+        cursor.execute(query,(roll_no, f_name, l_name,course,cgpa))
+        if(cursor.rowcount == 1):
+            connection.commit()
+            getStudents()
+            return True
+        else:
+            connection.rollback()
+            return False
+    except:
+        return "Error"
