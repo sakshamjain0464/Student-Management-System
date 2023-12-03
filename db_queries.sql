@@ -22,12 +22,5 @@ CREATE TABLE student_details (
     FOREIGN KEY (Course_ID) REFERENCES courses(Course_ID)
 );
 
--- Modified some columns
-ALTER TABLE courses
-MODIFY COLUMN Course_ID VARCHAR(5);
 
-ALTER TABLE student_details
-MODIFY COLUMN Course_ID VARCHAR(5);
-
--- Recreate the foreign key constraint
 
