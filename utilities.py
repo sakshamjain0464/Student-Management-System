@@ -1,6 +1,7 @@
 '''Module for processing data from frontend and sending it to backed'''
 
 from tkinter import *                                  #for GUI
+import customtkinter as c
 from CTkMessagebox import CTkMessagebox as message     #for displaying prompt messages
 import backend                            #for database access  'Self Created'
 import re                 #for validating entries
@@ -50,7 +51,7 @@ def addStudent(first_name, last_name, course, cgpa):
     elif(not cgpa.get().isnumeric()):
         message(title="WARNING", message="CGPA can only be a two digit integer ", icon='warning')
 
-    elif(int(cgpa.get()) < 0 or int(cgpa.get()) > 100):
+    elif(int(cgpa.get()) < 0 or int(cgpa.get()) > 10):
         message(title="WARNING", message="CGPA can not be less than 0 or greater than 10", icon='warning')
 
     else:
@@ -300,5 +301,10 @@ def getCourseReport():
 def close():
     '''Function for closing application'''
     backend.connection.close()
-    message(title="Error", message="Thank You for using our System!", icon='check')
+    window = c.CTk()
+    window.geometry('0x0')
+    if(message(title="Thank You", message="Thank You for using our System!", icon='check', option_1='OK') == 'OK'):
+        window.destroy()
+    window.mainloop()
+
 
